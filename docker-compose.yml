@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  db:
+    image: mariadb
+    container_name: db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    volumes:
+      - ./raddb/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+  radius:
+    build: .
+    container_name: radius
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - 1812:1812/udp
+      - 1813:1813/udp
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    restart: always
+    ports:
+      - 9500:80
