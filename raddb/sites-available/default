@@ -966,3 +966,13 @@ post-proxy {
 #	}
 }
 }
+
+
+expiration {
+	userlock = 1
+	if(userlock){
+		update reply {
+			Framed-Pool := "Expired_pool"
+		}
+	}
+}
