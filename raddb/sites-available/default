@@ -675,6 +675,12 @@ accounting {
 #	Acct-Type Status-Server {
 #
 #	}
+
+	
+#	if ("%{sql:SELECT count(*) FROM nas_user WHERE username = '%{User-Name}' AND ip = '%{NAS-IP-Address}'}" == 0) {
+#		reject
+#	}
+
 }
 
 

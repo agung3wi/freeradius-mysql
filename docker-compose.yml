@@ -12,6 +12,7 @@ services:
       - MYSQL_PASSWORD
     volumes:
       - ./raddb/sql:/docker-entrypoint-initdb.d
+      - /root/freeradius-data-mysql:/var/lib/mysql
     ports:
       - 3306:3306
   radius:
