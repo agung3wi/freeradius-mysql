@@ -426,7 +426,16 @@ authorize {
 #	daily
 
 	#
-	expiration
+	expiration {
+		userlock = 1
+		if(userlock){
+			update reply {
+				Reply-Message := "Your account has expired, %{User-Name} / Reason: DATE LIMIT REACHED / zaib"
+				Framed-Pool := "Expired_pool"
+			}
+		}
+	}
+
 	logintime
 
 	#
@@ -965,14 +974,4 @@ post-proxy {
 #			detail
 #	}
 }
-}
-
-
-expiration {
-	userlock = 1
-	if(userlock){
-		update reply {
-			Framed-Pool := "Expired_pool"
-		}
-	}
 }
