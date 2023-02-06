@@ -97,11 +97,11 @@ sql {
 	#
 	server = "db"
 	port = 3306
-	login = "radius"
-	password = "radpass"
+	login = $ENV{MYSQL_USER}
+	password = $ENV{MYSQL_PASSWORD}
 
 	# Database table configuration for everything except Oracle
-	radius_db = "radius"
+	radius_db = $ENV{MYSQL_DATABASE}
 
 	# If you are using Oracle then use this instead
 #	radius_db = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SID=your_sid)))"
