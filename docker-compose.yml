@@ -10,6 +10,7 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
+      - TZ
     volumes:
       - ./raddb/sql:/docker-entrypoint-initdb.d
       - /root/freeradius-data-mysql:/var/lib/mysql
@@ -24,11 +25,14 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
+      - TZ
     depends_on:
       - db
     ports:
       - 1812:1812/udp
       - 1813:1813/udp
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
@@ -37,6 +41,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
+      TZ: "Asia/Jakarta"
     restart: always
     ports:
       - 9500:80
